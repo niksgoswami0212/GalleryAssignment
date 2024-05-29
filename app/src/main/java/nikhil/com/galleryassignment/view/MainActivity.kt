@@ -2,14 +2,14 @@ package nikhil.com.galleryassignment.view
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import nikhil.com.galleryassignment.ImageLoader
+import nikhil.com.galleryassignment.utils.ImageLoader
 import nikhil.com.galleryassignment.R
 import nikhil.com.galleryassignment.adapter.ImageAdapter
+import nikhil.com.galleryassignment.utils.Helper
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -18,14 +18,13 @@ import okhttp3.Response
 import okio.IOException
 import org.json.JSONArray
 import org.json.JSONException
-import org.json.JSONObject
 import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var imageLoader: ImageLoader
     private lateinit var recyclerView: RecyclerView
+    private lateinit var linearLayout: LinearLayout
     private val imageUrls = mutableListOf<String>()
     private val client = OkHttpClient()
     private val imageCacheDir: File by lazy { File(cacheDir, "images") }
@@ -39,7 +38,13 @@ class MainActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         recyclerView.itemAnimator = null
 
-        fetchData()
+        if (Helper().isConnectedToInternet(this)){
+            fetchData()
+        }
+        else{
+            Helper().snackBar(linearLayout, "No Internet Connection")
+        }
+
     }
 
     private fun fetchData() {

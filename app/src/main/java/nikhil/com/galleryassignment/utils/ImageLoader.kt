@@ -1,15 +1,11 @@
-package nikhil.com.galleryassignment
+package nikhil.com.galleryassignment.utils
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import android.widget.ImageView
 import androidx.collection.LruCache
-import androidx.lifecycle.LifecycleCoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import nikhil.com.galleryassignment.R
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
